@@ -1,27 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import DeviceOption from "./components/DeviceOption"
-import About from "./components/About"
-import Header from "./components/Header"
+import Header from "./components/Header";
+
+const DeviceOption = lazy(() => import("./components/DeviceOption"));
+const About = lazy(() => import("./components/About"));
+
 
 export default function App() {
   return (
     <div className="App">
+      <Header />
       <Router>
-        <div>
-          <Header />
-          <main>
-            <Switch>
-              <Route path="/About" component={About} />
-              <Route path="/" component={DeviceOption} />
-            </Switch>
-          </main>
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={DeviceOption} />
+            <Route path="/about" component={About} />
+          </Switch>
+        </Suspense>
       </Router>
     </div>
   );
 }
-
-
-
