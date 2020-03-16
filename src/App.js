@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 
-const DeviceOption = lazy(() => import("./components/DeviceOption"));
+const DeviceOption = lazy(() => import("./components/deviceOptionComponents/DeviceOption"));
 const About = lazy(() => import("./components/About"));
-
 
 export default function App() {
   return (
