@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Loader from "../../shared/Loader";
-import DeviceOptionList from "./DeviceOptionList";
 import Context from "../contexts/DeviceOptionContext";
+
+import DeviceOptionList from "./DeviceOptionList";
+import DeviceOptionPanel from "./DeviceOptionPanel";
 
 export default function DeviceOption() {
   //SET STATE-----------------------------------------------------------------------
@@ -27,6 +29,22 @@ export default function DeviceOption() {
       description: "",
       autoBuild: true,
       exchangeKeys: ["NewDevice_2 TcpIp=50000 Addr=2"]
+    },
+    {
+      id: 3,
+      name: "NewDevice_3",
+      ProduserUnionKey: "gr111",
+      description: "",
+      autoBuild: true,
+      exchangeKeys: ["NewDevice_3 TcpIp=50000 Addr=3"]
+    },
+    {
+      id: 4,
+      name: "NewDevice_4",
+      ProduserUnionKey: "gr111",
+      description: "",
+      autoBuild: true,
+      exchangeKeys: ["NewDevice_4 TcpIp=50000 Addr=4"]
     }
   ];
 
@@ -41,6 +59,7 @@ export default function DeviceOption() {
   function fetchData() {
     //DEBUG: добавлена задержка для отладки
     setLoading(true);
+    setDeviceOptions([]);
     setTimeout(() => {
       setDeviceOptions(deviceOptionsMoq);
       setLoading(false);
@@ -49,29 +68,28 @@ export default function DeviceOption() {
 
   function removeDeviceOption(id) {
     console.log(id);
-
     var newOptions = deviceOptions.filter(opt => opt.id !== id);
     setDeviceOptions(newOptions);
   }
 
   function addDeviceOption(deviceOption) {
-    //var newTodos = todos.filter(todo => todo.id !== id);
-    //setTodos(newTodos);
+    var newOptions = deviceOptions.concat(deviceOption);
+    setDeviceOptions(newOptions);
   }
 
   return (
-    <Context.Provider value={{ addDeviceOption, removeDeviceOption }}>
+    <Context.Provider
+      value={{ addDeviceOption, removeDeviceOption, fetchData }}
+    >
       <div>
+        <h2>Device options</h2>
+        <DeviceOptionPanel options={deviceOptions}></DeviceOptionPanel>
         {loading && <Loader />}
         {deviceOptions.length ? (
           <DeviceOptionList options={deviceOptions}></DeviceOptionList>
         ) : loading ? null : (
           <p>Нет Устройств</p>
         )}
-
-        <Button variant="contained" onClick={fetchData}>
-          Get data
-        </Button>
       </div>
     </Context.Provider>
   );

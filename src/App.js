@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
+import Nav from "./components/Nav";
 
 const DeviceOption = lazy(() => import("./components/deviceOptionComponents/DeviceOption"));
 const About = lazy(() => import("./components/About"));
@@ -9,7 +10,8 @@ const About = lazy(() => import("./components/About"));
 export default function App() {
   return (
     <div className="App">
-      <Header />
+     <CssBaseline />
+      <Nav/>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>

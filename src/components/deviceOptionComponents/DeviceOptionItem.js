@@ -1,27 +1,20 @@
 import React, { useContext } from "react";
+import ListItem from '@material-ui/core/ListItem';
 import Context from "../contexts/DeviceOptionContext";
-
-const styles = {
-  li: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: ".5rem 1rem",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    marginBottom: ".5rem"
-  },
-  input: {
-    marginRight: "1rem"
-  }
-};
 
 export default function DeviceOptionItem({ deviceOption }) {
   //получить Объекты из контекста по ключу
   const { removeDeviceOption } = useContext(Context);
 
+  const itemStyle = {
+    padding: "2rem",
+    margin: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  };
+
   return (
-    <li style={styles.li}>
+    <ListItem button style={itemStyle}>
       <span>
         <strong>{deviceOption.id}</strong>
         &nbsp; {/*символ пробела */}
@@ -33,6 +26,6 @@ export default function DeviceOptionItem({ deviceOption }) {
       >
         &times;
       </button>
-    </li>
+    </ListItem>
   );
 }
